@@ -1,28 +1,27 @@
-# SQL Project "Accommodation in Poland"
+# SQL Projekt - Miejsca noclegowe w Polsce
 
-Analysis of statistical data on accommodation in Poland.
-
-
-## Methodology
-
-Compiling statistical data from the Central Statistical Office from stat.gov.pl and sending queries to the database in pgAdmin 4 (PostgresSQL) in order to perform the following analysis;
-
-## Primary Objective
-
-1. List the occupancy of accommodation hotels in Poland in 2022 r.   
-2. List the occupancy rate of each accommodation facility in Poland from 2018 to 2022.    
-3. List the difference in the occupancy of accommodation facilities in 2022 compared to 2018. In which facilities has there been an increase?  
-4. List the occupancy of all hotels in Poland in the years 2002 - 2022.  
-5. List the smallest and largest hotel occupancy in Poland in the years 2002 - 2022.  
-6. List the use of accommodation places in each region in 2022 r.  
-7. List the type of amenities that are most common in accommodation places and compare the percentage of 2022 to 2002.  
+Analiza danych statystycznych dotyczących bazy noclegowej w Polsce.
 
 
-# Creating  
-## Creating databases 
+## Metodologia
+
+Skompilowanie danych statystycznych Głównego Urzędu Statystycznego dostępnych na stronei www.stat.gov.pl i wysłanie zapytań do bazy danych w programie pgAdmin 4 (PostgresSQL) w celu przeprowadzenia poniższej analizy;
+
+## Główny cel
+
+1. Wymienienie obłożenia hoteli w Polsce w 2022 r. 
+2. Zestawienie obłożenia obiektów noclegowych w Polsce według rodzaju w latach 2018-2022.    
+3. Obliczenie różnicy w obłożeniu obiektów noclegowych w Polsce w 2022 r. w porównaniu do 2018 r.
+4. Wymienienie obłożenia wszystkich hoteli w Polsce w latach 2002 - 2022.  
+5. Wyróżnienie najmniejszego i największego obłożenia hoteli w Polsce w latach 2002 - 2022.  
+6. Zestawienie wykorzystania miejsc noclegowych w poszczególnych regionachwojewództwach w 2022 r.  
+7. Wyróżnienie rodzaju udogodnień, które są najczęściej spotykane w miejscach noclegowych i porównanie procentowe  odwyniku z 2021 r. do 2009 r. 
+
+
+## Tworzenie bazydanych 
 
 ```
-CREATE DATABASE accommodation_in_poland
+CREATE DATABASE miejsca_noclegowe_w_polsce
     WITH
     OWNER = postgres
     ENCODING = 'UTF8'
@@ -30,126 +29,124 @@ CREATE DATABASE accommodation_in_poland
     IS_TEMPLATE = False;
 ```
 
-## Create and copy tables
+## Tworzenie i kopiowanie tabel
 
-#### 1. Create and copy table "St_wykorzystania_miejsc_noclegowych"
+#### Tabela 1. "stopień wykorzystania miejsc noclegowych"
 ```
-CREATE TABLE St_wykorzystania_miejsc_noclegowych(
-	Kod varchar(10),
-	Nazwa varchar(30),
-	Rodzaje_obiektów varchar(100),
-	Rok INTEGER,
-	Wartosc decimal(5,2),
-	Jednostka_miary varchar(10),
-	Atrybut varchar(10)
+CREATE TABLE st_wykorzystania_miejsc_noclegowych(
+	kod varchar(10),
+	nazwa varchar(30),
+	rodzaje_obiektow varchar(100),
+	rok INTEGER,
+	wartosc decimal(5,2),
+	jednostka_miary varchar(10),
+	atrybut varchar(10)
 );
 
-COPY St_wykorzystania_miejsc_noclegowych
-FROM 'D:\project_accommodation_in_poland\St_wykorzystania_miejsc_noclegowych.txt'
+COPY st_wykorzystania_miejsc_noclegowych
+FROM '<ROOT_PATH>\dane\st_wykorzystania_miejsc_noclegowych.txt'
 WITH (FORMAT CSV, HEADER,DELIMITER ';');
 ```
-#### 2. Create and copy table "placowki_gastronomiczne"
+#### Tabela 2. "placówki gastronomiczne"
 ```
 CREATE TABLE placowki_gastronomiczne(
-		Kod varchar(10),
-		Nazwa varchar(30),
-		Rodzaje_obiektów varchar(100),
-		Rodzaje_placówek varchar(100),
-		Rok INTEGER,
-		Wartosc INTEGER,
-		Jednostka_miary varchar(10),
-		Atrybut varchar(10)
+		kod varchar(10),
+		nazwa varchar(30),
+		rodzaje_obiektow varchar(100),
+		rodzaje_placowek varchar(100),
+		rok INTEGER,
+		wartosc INTEGER,
+		jednostka_miary varchar(10),
+		atrybut varchar(10)
 	);
 
-
 COPY placowki_gastronomiczne
-FROM 'D:\project_accommodation_in_poland\Placowki_gastronomiczne.txt'
+FROM '<ROOT_PATH>\dane\placowki_gastronomiczne.txt'
 WITH (FORMAT CSV, HEADER,DELIMITER ';');
 ```
-#### 3. Create and copy table "obiekty_z_zapleczem_sportowo_rekreacyjnym"
+#### Tabela 3. "obiekty z zapleczem sportowo rekreacyjnym"
 ```
 CREATE TABLE obiekty_z_zapleczem_sportowo_rekreacyjnym(
-		Kod varchar(10),
-		Nazwa varchar(30),
-		Rodzaje_urządzeń varchar(100),
-		Rok INTEGER,
-		Wartosc INTEGER,
-		Jednostka_miary varchar(10),
-		Atrybut varchar(10)
+		kod varchar(10),
+		nazwa varchar(30),
+		rodzaje_urzadzen varchar(100),
+		rok INTEGER,
+		wartosc INTEGER,
+		jednostka_miary varchar(10),
+		atrybut varchar(10)
 	);
 
 COPY obiekty_z_zapleczem_sportowo_rekreacyjnym
-FROM 'D:\accommodation_in_poland\obiekty_z_zapleczem_sportowo_rekreacyjnym.txt'
-	WITH (FORMAT CSV, HEADER,DELIMITER ';');
+FROM '<ROOT_PATH>\dane\obiekty_z_zapleczem_sportowo_rekreacyjnym.txt'
+WITH (FORMAT CSV, HEADER,DELIMITER ';');
+
 ```
-#### 4. Create and copy table "obiekty_z_udogodnieniem_dla_niepełnosprawnych"
+#### Tabela 4. "obiekty z udogodnieniem dla niepełnosprawnych"
 ```
-CREATE TABLE obiekty_z_udogodnieniem_dla_niepełnosprawnych(
-		Kod varchar(10),
-		Nazwa varchar(30),
-		Rodzaje_udogodnień varchar(100),
-		Rok INTEGER,
-		Wartosc INTEGER,
-		Jednostka_miary varchar(10),
-		Atrybut varchar(10)
+CREATE TABLE obiekty_z_udogodnieniem_dla_niepelnosprawnych(
+		kod varchar(10),
+		nazwa varchar(30),
+		rodzaje_udogodnien varchar(100),
+		rok INTEGER,
+		wartosc INTEGER,
+		jednostka_miary varchar(10),
+		atrybut varchar(10)
 	);
 
-COPY obiekty_z_udogodnieniem_dla_niepełnosprawnych
-FROM 'D:\project_accommodation_in_poland\Obiekty_z_udogodnieniem_dla_niepelnosprawnych.txt'
+COPY obiekty_z_udogodnieniem_dla_niepelnosprawnych
+FROM '<ROOT_PATH>\dane\obiekty_z_udogodnieniem_dla_niepelnosprawnych.txt'
 WITH (FORMAT CSV, HEADER,DELIMITER ';');
 ```
-#### 5. Create and copy table "obiekty_z_zapleczem_konferencyjnym"
+#### Tabela 5. "obiekty z zapleczem konferencyjnym"
 ```
 CREATE TABLE obiekty_z_zapleczem_konferencyjnym(
-		Kod varchar(10),
-		Nazwa varchar(30),
-		Zaplecze_konferencyjne varchar(100),
-		Rok INTEGER,
-		Wartosc INTEGER,
-		Jednostka_miary varchar(10),
-		Atrybut varchar(10)
+		kod varchar(10),
+		nazwa varchar(30),
+		zaplecze_konferencyjne varchar(100),
+		rok INTEGER,
+		wartosc INTEGER,
+		jednostka_miary varchar(10),
+		atrybut varchar(10)
 	);
 
 COPY obiekty_z_zapleczem_konferencyjnym
-FROM 'D:\project_accommodation_in_poland\Obiekty_z_zapleczem_konferencyjnym.txt'
+FROM '<ROOT_PATH>\dane\obiekty_z_zapleczem_konferencyjnym.txt'
 WITH (FORMAT CSV, HEADER,DELIMITER ';');
 ```
-#### 6. Create and copy table "st_wykorzystania_hoteli"
+#### Tabela 6. "stopień wykorzystania hoteli"
 ```
 CREATE TABLE st_wykorzystania_hoteli(
-		Kod varchar(10),
-		Nazwa varchar(30),
-		Wyszczególnienie varchar(100),
-		Kategorie varchar(100),
-		Rok INTEGER,
-		Wartosc decimal(5,2),
-		Jednostka_miary varchar(10),
-		Atrybut varchar(10)
+		kod varchar(10),
+		nazwa varchar(30),
+		wyszczegolnienie varchar(100),
+		kategorie varchar(100),
+		rok INTEGER,
+		wartosc decimal(5,2),
+		jednostka_miary varchar(10),
+		atrybut varchar(10)
 	);
 
 COPY st_wykorzystania_hoteli
-FROM 'D:\project_accommodation_in_poland\St_wykorzystania_hoteli_wg_kategorii.txt'
+FROM '<ROOT_PATH>\dane\st_wykorzystania_hoteli.txt'
 WITH (FORMAT CSV, HEADER,DELIMITER ';');
 ```
 
+# Tworzenie zapytań
 
-
-# Creating queries
-
-## Select information from tables
-### 1. List the occupancy of accommodation hotels in Poland in 2022 r. 
+## Wybieranie informacji z tabel
+### 1. Wykaz obłożenia miejsc noclegowych w hotelach w Polsce w 2022 r. 
 
 ```
-SELECT DISTINCT rodzaje_obiektów
-FROM St_wykorzystania_miejsc_noclegowych;
+SELECT DISTINCT rodzaje_obiektow
+FROM st_wykorzystania_miejsc_noclegowych;
 
-SELECT rodzaje_obiektów, wartosc AS "obłożenie_%_2022"
-FROM St_wykorzystania_miejsc_noclegowych
-WHERE Nazwa = 'POLSKA' AND rok = 2022
+SELECT rodzaje_obiektow, wartosc AS "oblozenie_%_2022"
+FROM st_wykorzystania_miejsc_noclegowych
+WHERE nazwa = 'POLSKA' AND rok = 2022
 ORDER BY wartosc DESC NULLS LAST;
 ```
-#### results:
-|    |rodzaje_obiektów        |  obłożenie_%_2022  |
+#### wynik:
+|    |rodzaje_obiektow        |  oblozenie_%_2022  |
 |----|------------------------|--------------------|
 |1   |zakłady uzdrowiskowe    |73.90               |
 |2   |ośrodki kolonijne       |46.60               |
@@ -160,48 +157,48 @@ ORDER BY wartosc DESC NULLS LAST;
 
 
 
-### 2. List the occupancy rate of each accommodation facility in Poland from 2018 to 2022.  
+### 2. Wykaz wskaźników obłożenia obiektów noclegowych w Polsce według rodzaju w latach 2018-2022. 
 ```
 COPY
 (SELECT 
-	t1.rodzaje_obiektów, 
-	t1."obłożenie_%_2018", 
-	t2."obłożenie_%_2019",
-	t3."obłożenie_%_2020",
-	t4."obłożenie_%_2021",
-	t5."obłożenie_%_2022"
-FROM (SELECT rodzaje_obiektów, wartosc AS "obłożenie_%_2018"
-	FROM St_wykorzystania_miejsc_noclegowych
-	WHERE Nazwa = 'POLSKA' AND rok = 2018 AND wartosc IS NOT NULL) as t1
+	t1.rodzaje_obiektow, 
+	t1."oblozenie_%_2018", 
+	t2."oblozenie_%_2019",
+	t3."oblozenie_%_2020",
+	t4."oblozenie_%_2021",
+	t5."oblozenie_%_2022"
+FROM (SELECT rodzaje_obiektow, wartosc AS "oblozenie_%_2018"
+	FROM st_wykorzystania_miejsc_noclegowych
+	WHERE nazwa = 'POLSKA' AND rok = 2018 AND wartosc IS NOT NULL) as t1
 	, 
-	(SELECT rodzaje_obiektów, wartosc AS "obłożenie_%_2019"
-	FROM St_wykorzystania_miejsc_noclegowych
-	WHERE Nazwa = 'POLSKA' AND rok = 2019 AND wartosc IS NOT NULL) as t2
+	(SELECT rodzaje_obiektow, wartosc AS "oblozenie_%_2019"
+	FROM st_wykorzystania_miejsc_noclegowych
+	WHERE nazwa = 'POLSKA' AND rok = 2019 AND wartosc IS NOT NULL) as t2
 	,
-	(SELECT rodzaje_obiektów, wartosc AS "obłożenie_%_2020"
-	FROM St_wykorzystania_miejsc_noclegowych
-	WHERE Nazwa = 'POLSKA' AND rok = 2020 AND wartosc IS NOT NULL) as t3
+	(SELECT rodzaje_obiektow, wartosc AS "oblozenie_%_2020"
+	FROM st_wykorzystania_miejsc_noclegowych
+	WHERE nazwa = 'POLSKA' AND rok = 2020 AND wartosc IS NOT NULL) as t3
 	,
-	(SELECT rodzaje_obiektów, wartosc AS "obłożenie_%_2021"
-	FROM St_wykorzystania_miejsc_noclegowych
-	WHERE Nazwa = 'POLSKA' AND rok = 2021 AND wartosc IS NOT NULL) as t4
+	(SELECT rodzaje_obiektow, wartosc AS "oblozenie_%_2021"
+	FROM st_wykorzystania_miejsc_noclegowych
+	WHERE nazwa = 'POLSKA' AND rok = 2021 AND wartosc IS NOT NULL) as t4
 	,
-	(SELECT rodzaje_obiektów, wartosc AS "obłożenie_%_2022"
-	FROM St_wykorzystania_miejsc_noclegowych
-	WHERE Nazwa = 'POLSKA' AND rok = 2022 AND wartosc IS NOT NULL) as t5
-WHERE t1.rodzaje_obiektów = t2.rodzaje_obiektów 
-		AND t1.rodzaje_obiektów = t3.rodzaje_obiektów
-		AND t1.rodzaje_obiektów = t4.rodzaje_obiektów
-		AND t1.rodzaje_obiektów = t5.rodzaje_obiektów
-ORDER BY "obłożenie_%_2022" DESC
+	(SELECT rodzaje_obiektow, wartosc AS "oblozenie_%_2022"
+	FROM st_wykorzystania_miejsc_noclegowych
+	WHERE nazwa = 'POLSKA' AND rok = 2022 AND wartosc IS NOT NULL) as t5
+WHERE t1.rodzaje_obiektow = t2.rodzaje_obiektow 
+		AND t1.rodzaje_obiektow = t3.rodzaje_obiektow
+		AND t1.rodzaje_obiektow = t4.rodzaje_obiektow
+		AND t1.rodzaje_obiektow = t5.rodzaje_obiektow
+ORDER BY "oblozenie_%_2022" DESC
 )
-TO 'D:\projekt_1\Oblozenie_obiektow_noclegowych_w_2018-2022.csv'
+TO '<ROOT_PATH>\wyniki\Oblozenie_obiektow_noclegowych_w_2018-2022.csv'
 WITH (FORMAT CSV, HEADER, DELIMITER ',');
 ```
-#### results:
+#### wynik:
 
-| |rodzaje_obiektów        | obłożenie_%_2018|obłożenie_%_2019|obłożenie_%_2020|obłożenie_%_2021| obłożenie_%_2022|
-|--|-----------------------|----------------|----------------|----------------|----------------|----------------|
+|  |rodzaje_obiektow       |oblozenie_%_2018|oblozenie_%_2019|oblozenie_%_2020|oblozenie_%_2021| oblozenie_%_2022|
+|--|-----------------------|----------------|----------------|----------------|----------------|-----------------|
 |1 |zakłady uzdrowiskowe   |79.60   |79.60	|54.50	|61.90	|73.90|
 |2 |ośrodki kolonijne      |51.40	|49.30	|32.50	|53.50	|46.60|
 |3 |hostele                |47.40	|46.90	|30.70	|36.00	|46.40|
@@ -210,60 +207,60 @@ WITH (FORMAT CSV, HEADER, DELIMITER ',');
 
 --snip--
 
-![image](./wykres1.2.png)
+![image](./wyniki/2_tabela.png)
 
 
-###  3. List the difference in the occupancy of accommodation facilities in 2022 compared to 2018. In which facilities has there been an increase? 
+###  3. Wykaz różnic w obłożeniu obiektów noclegowych w 2022 r. w porównaniu do 2018 r.
 ```
 COPY
 (SELECT 
-	t1.rodzaje_obiektów, 
-	t1."obłożenie_%_2018", 
-	t5."obłożenie_%_2018",
-	"obłożenie_%_2022" - "obłożenie_%_2018" AS obłożenie_%_2018"
-FROM (SELECT rodzaje_obiektów, wartosc AS "obłożenie_%_2018"
-	FROM St_wykorzystania_miejsc_noclegowych
-	WHERE Nazwa = 'POLSKA' AND rok = 2018 AND wartosc IS NOT NULL) as t1
+	t1.rodzaje_obiektow, 
+	t1."oblozenie_%_2018", 
+	t5."oblozenie_%_2022",
+	"oblozenie_%_2022" - "oblozenie_%_2018" AS "wzrost/spadek (p.p.)"
+FROM (SELECT rodzaje_obiektow, wartosc AS "oblozenie_%_2018"
+	FROM st_wykorzystania_miejsc_noclegowych
+	WHERE nazwa = 'POLSKA' AND rok = 2018 AND wartosc IS NOT NULL) as t1
 	,
-	(SELECT rodzaje_obiektów, wartosc AS "obłożenie_%_2022"
-	FROM St_wykorzystania_miejsc_noclegowych
-	WHERE Nazwa = 'POLSKA' AND rok = 2022 AND wartosc IS NOT NULL) as t5
-WHERE t1.rodzaje_obiektów = t5.rodzaje_obiektów
-ORDER BY "wzrost/spadek (p.p.)" DESC;
+	(SELECT rodzaje_obiektow, wartosc AS "oblozenie_%_2022"
+	FROM st_wykorzystania_miejsc_noclegowych
+	WHERE nazwa = 'POLSKA' AND rok = 2022 AND wartosc IS NOT NULL) as t5
+WHERE t1.rodzaje_obiektow = t5.rodzaje_obiektow
+ORDER BY "wzrost/spadek (p.p.)" DESC
 )
-TO 'D:\projekt_1\Wzrost,spadek_obłożenia.csv'
+TO '<ROOT_PATH>\wyniki\Roznica_oblozenia_obiektow_noclegowych_2018-2022.csv'
 WITH (FORMAT CSV, HEADER, DELIMITER ',');
 ```
-#### results:
-|    |rodzaje_obiektów        | obłożenie_%_2018 |obłożenie_%_2018 |obłożenie_%_2018|
-|----|------------------------|------------------|-----------------|----------------|
-|1   |pola biwakowe           |17.30	         |24.10	           |6.80            |
-|2   |schroniska              |28.00	         |32.50            |4.50            |
-|3   |inne obiekty hotelowe   |32.70	         |34.60            |1.90            |
-|4   |motele                  |25.50	         |27.40            |1.90            |
-|5   |kwatery agroturystyczn  |15.30	         |16.70            |1.40            |
+#### wynik:
+|  |rodzaje_obiektow|oblozenie_%_2018 |oblozenie_%_2018 |oblozenie_%_2018 |
+|--|-----------------------|----------|-----------------|-----------------|
+|1 |pola biwakowe          |17.30	  |24.10	        |6.80             |
+|2 |schroniska             |28.00	  |32.50            |4.50             |
+|3 |inne obiekty hotelowe  |32.70     |34.60            |1.90             |
+|4 |motele                 |25.50     |27.40            |1.90             |
+|5 |kwatery agroturystyczn |15.30	  |16.70            |1.40             	|
 
 --snip-- 
 
-![image](./wykres1.3.png)
+![image](./wyniki/3_tabela.png)
 
-### 4. List the occupancy of all hotels in Poland in the years 2002 - 2022. 
+### 4. Zestawienie obłożenia wszystkich hoteli w Polsce w latach 2002 - 2022.
 
 ```
 COPY
-(SELECT rok, wartosc AS "obłożenie_hoteli_%"
-FROM St_wykorzystania_miejsc_noclegowych
+(SELECT rok, wartosc AS "oblozenie_hoteli_%"
+FROM st_wykorzystania_miejsc_noclegowych
 WHERE 
-	Nazwa = 'POLSKA' AND 
-	rodzaje_obiektów ='hotele' AND 
+	nazwa = 'POLSKA' AND 
+	rodzaje_obiektow ='hotele' AND 
 	rok BETWEEN 2002 AND 2022
 ORDER BY rok ASC
 )
-TO 'D:\projekt_1\Oblozenie_hoteli_w_Polsce_w_latach_2002-2022.csv'
+TO '<ROOT_PATH>\wyniki\Oblozenie_hoteli_w_Polsce_w_latach_2002-2022.csv'
 WITH (FORMAT CSV, HEADER, DELIMITER ',');
 ```
-#### results:
-|    |rok     |obłożenie_hoteli_%  |
+#### wynik:
+|    |rok     |oblozenie_hoteli_%  |
 |----|--------|--------------------|
 |1   |2002    |30.30               |
 |2   |2003    |31.00               |
@@ -272,18 +269,18 @@ WITH (FORMAT CSV, HEADER, DELIMITER ',');
 |5   |2006    |37.40               |
 --snip--
 
-![image](./wykres1.4.png)
+![image](./wyniki/4_tabela.png)
 
-### 5. List the smallest and largest hotel occupancy in Poland in the years 2002 - 2022. 
+### 5. Lista najmniejszego i największego obłożenia hoteli w Polsce w latach 2002-2022.
 
 ```
 SELECT max(wartosc), min(wartosc)
-FROM St_wykorzystania_miejsc_noclegowych
+FROM st_wykorzystania_miejsc_noclegowych
 WHERE 
-	Nazwa = 'POLSKA' AND 
-	rodzaje_obiektów ='hotele';
+	nazwa = 'POLSKA' AND 
+	rodzaje_obiektow ='hotele';
 ```
-#### results:
+#### wynik:
 |    |max     |min     |
 |----|--------|--------|
 |1   |44.10   |26.00   |
@@ -291,65 +288,43 @@ WHERE
 
 ```
 SELECT rok, wartosc 
-FROM St_wykorzystania_miejsc_noclegowych
-WHERE wartosc = (SELECT max(wartosc)
-FROM St_wykorzystania_miejsc_noclegowych
-WHERE 
-	Nazwa = 'POLSKA' AND 
-	rodzaje_obiektów ='hotele')
-ORDER BY rok;
+FROM st_wykorzystania_miejsc_noclegowych
+WHERE wartosc = '44.10' or wartosc = '26.00' AND 
+	nazwa = 'POLSKA' AND 
+	rodzaje_obiektow ='hotele'
+ORDER BY wartosc, rok;
 ```
-#### results:
+#### wynik:
 |    |rok     |wartosc             |
 |----|--------|--------------------|
-|1   |2006    |44.10               |
-|2   |2008    |44.10               |
-|3   |2013    |44.10               |
-|4   |2019    |44.10               |
-|5   |2022    |44.10               |
+|1   |2020    |26.00               |
+|2   |2006    |44.10               |
+|3   |2008    |44.10               |
+|4   |2013    |44.10               |
+|5   |2019    |44.10               |
+|6   |2022    |44.10               |
 
 
-```
-SELECT rok, wartosc 
-FROM St_wykorzystania_miejsc_noclegowych
-WHERE wartosc = (SELECT min(wartosc)
-FROM St_wykorzystania_miejsc_noclegowych
-WHERE 
-	Nazwa = 'POLSKA' AND 
-	rodzaje_obiektów ='hotele')
-ORDER BY rok;
-```
-#### results:
-|    |rok     |wartosc             |
-|----|--------|--------------------|
-|1   |2002    |26.00               |
-|2   |2003    |44.10               |
-|3   |2016    |44.10               |
-|4   |2008    |44.10               |
-|5   |2010    |44.10               |
-
---snip--
-
-### 6. List the use of accommodation places in each region in 2022 r.  
+### 6. Zestawienie wykorzystania miejsc noclegowych w poszczególnych województwach w 2022 r.  
 
 ```
 COPY
-(SELECT nazwa AS "województwo", round((sum(wartosc)/count(nazwa)),2) AS "wartość (%)"
-FROM St_wykorzystania_miejsc_noclegowych
+(SELECT nazwa AS "wojewodztwo", round((sum(wartosc)/count(nazwa)),2) AS "wartosc (%)"
+FROM st_wykorzystania_miejsc_noclegowych
 WHERE 
-	Nazwa NOT ILIKE 'POLSKA' AND 
-	rodzaje_obiektów NOT ILIKE 'ogółem' AND
+	nazwa NOT ILIKE 'POLSKA' AND 
+	rodzaje_obiektow NOT ILIKE 'ogółem' AND
 	rok = 2022 AND
 	wartosc IS NOT NULL AND 
 	wartosc > 0
 GROUP BY nazwa
-ORDER BY "wartość (%)" DESC
+ORDER BY "wartosc (%)" DESC
 )
-TO 'D:\projekt_1\Wykorzystanie_obiektow_noclegowych_w_wojewodztwach_w_2022.csv'
+TO '<ROOT_PATH>\wyniki\Wykorzystanie_obiektow_noclegowych_w_wojewodztwach_w_2022.csv'
 WITH (FORMAT CSV, HEADER, DELIMITER ',');
 ```
-#### results:
-|    |województwo            |wartość (%)    |
+#### wynik:
+|    |wojewodztwo            |wartosc (%)    |
 |----|-----------------------|---------------|
 |1   |ZACHODNIOPOMORSKIE     |40.56          |
 |2   |POMORSKIE              |39.43          |
@@ -359,16 +334,16 @@ WITH (FORMAT CSV, HEADER, DELIMITER ',');
 
 --snip--
 
-![image](./wykres1.6.png)
+![image](./wyniki/6_tabela.png)
 
-### 7. List the type of amenities that are most common in accommodation places and compare the percentage of 2022 to 2002. 
+### 7. Wyróżnienie rodzajów udogodnień, które są najbardziej powszechne w miejscach zakwaterowania oraz porównanie procentowe wyniku z 2021 r. do 2009 r.
 
 ```
-SELECT DISTINCT rodzaje_udogodnień
-FROM obiekty_z_udogodnieniem_dla_niepełnosprawnych;
+SELECT DISTINCT rodzaje_udogodnien
+FROM obiekty_z_udogodnieniem_dla_niepelnosprawnych;
 ```
-#### results:
-|    |rodzaje_udogodnień                                                  |
+#### wynik:
+|    |rodzaje_udogodnien                                                  |
 |----|--------------------------------------------------------------------|
 |1   |pokoje/łazienki przystosowane dla osób niepełnosprawnych            |
 |2   |drzwi automatycznie otwierane                                       |
@@ -377,48 +352,49 @@ FROM obiekty_z_udogodnieniem_dla_niepełnosprawnych;
 |5   |pochylnia wjazdowa                                                  |
 
 
-
 ```
-UPDATE obiekty_z_udogodnieniem_dla_niepełnosprawnych
-SET rodzaje_udogodnień = 'winda przystosowana dla osób niepełnosprawnych'
-WHERE rodzaje_udogodnień = 'winda przystosowana dla osób niepełnosprawnych ruchowo';
+UPDATE obiekty_z_udogodnieniem_dla_niepelnosprawnych
+SET rodzaje_udogodnien = 'winda przystosowana dla osób niepełnosprawnych'
+WHERE rodzaje_udogodnien = 'winda przystosowana dla osób niepełnosprawnych ruchowo';
 ```
 ```
-UPDATE obiekty_z_udogodnieniem_dla_niepełnosprawnych
-SET rodzaje_udogodnień = 'pokoje/łazienki przystosowane dla osób niepełnosprawnych'
-WHERE rodzaje_udogodnień = 'pokoje/łazienki przystosowane dla osób niepełnosprawnych ruchowo (w tym na wózkach inwalidzkich)';
+UPDATE obiekty_z_udogodnieniem_dla_niepelnosprawnych
+SET rodzaje_udogodnien = 'pokoje/łazienki przystosowane dla osób niepełnosprawnych'
+WHERE rodzaje_udogodnien = 'pokoje/łazienki przystosowane dla osób niepełnosprawnych ruchowo (w tym na wózkach inwalidzkich)';
 ```
-
-
+```
+UPDATE obiekty_z_udogodnieniem_dla_niepelnosprawnych
+SET rodzaje_udogodnien = 'parking z wyznaczonymi miejscami dla osób niepełnosprawnych'
+WHERE rodzaje_udogodnien = 'parking z wyznaczonymi miejscami dla osób niepełnosprawnych ruchowo';
+```
 ```
 SELECT 
-t1.rodzaje_udogodnień, 
-t1."ilość_2021",
-t2."ilość_2009",
-t1."ilość_2021" - t2."ilość_2009" AS "różnica_ilościowa",
-CAST(ROUND(((t1."ilość_2021"::numeric - t2."ilość_2009"::numeric)* 100 )/(t2."ilość_2009"::numeric),2) AS numeric(5,2)) 
-AS "różnica_procentowa"
+t1.rodzaje_udogodnien, 
+t1."ilosc_2021",
+t2."ilosc_2009",
+t1."ilosc_2021" - t2."ilosc_2009" AS "roznica_ilosciowa",
+CAST(ROUND(((t1."ilosc_2021"::numeric - t2."ilosc_2009"::numeric)* 100 )/(t2."ilosc_2009"::numeric),2) AS numeric(5,2)) 
+AS "roznica_procentowa"
 FROM 
-	(SELECT rodzaje_udogodnień, sum(wartosc) AS "ilość_2021"
-	FROM obiekty_z_udogodnieniem_dla_niepełnosprawnych
+	(SELECT rodzaje_udogodnien, sum(wartosc) AS "ilosc_2021"
+	FROM obiekty_z_udogodnieniem_dla_niepelnosprawnych
 	WHERE 
 	rok = 2021 
-	GROUP BY rodzaje_udogodnień) AS t1
+	GROUP BY rodzaje_udogodnien) AS t1
 JOIN
-	(SELECT rodzaje_udogodnień, sum(wartosc) AS "ilość_2009"
-	FROM obiekty_z_udogodnieniem_dla_niepełnosprawnych
+	(SELECT rodzaje_udogodnien, sum(wartosc) AS "ilosc_2009"
+	FROM obiekty_z_udogodnieniem_dla_niepelnosprawnych
 	WHERE  
 	rok = 2009 
-	GROUP BY rodzaje_udogodnień) AS t2
-ON t1.rodzaje_udogodnień = t2.rodzaje_udogodnień
-ORDER BY "ilość_2021" DESC NULLS LAST;
+	GROUP BY rodzaje_udogodnien) AS t2
+ON t1.rodzaje_udogodnien = t2.rodzaje_udogodnien
+ORDER BY "ilosc_2021" DESC NULLS LAST;
 ```
-#### results:
-|  |rodzaje_udogodnień                                       |ilość_2021 |ilość_2009|ilość_2021|
-|--|---------------------------------------------------------|-----------|----------|----------|
-|1 |parking z wyznaczonymi miejscami dla osób niepełnosprawnych ruchowo|4678|[null]|[null]|[null]|
-|2 |pochylnia wjazdowa                                       |4242	|3612	|630	|17.44     |
-|3 |winda przystosowana dla osób niepełnosprawnych           |3634	|1850	|1784	|96.43     |
-|4 |motdrzwi automatycznie otwieraneele                      |2538	|1354	|1184	|87.44     |
-|5 |pokoje/łazienki przystosowane dla osób niepełnosprawnych |[null]|3626   |[null] |[null]    |
-
+#### wynik:
+|  |rodzaje_udogodnien |ilosc_2021 |ilosc_2009|roznica_ilosciowa|roznica_procentowa|
+|--|-------------------|-----------|----------|-----------------|------------------|
+|1 |parking z wyznaczonymi miejscami dla osób niepełnosprawnych|4678   |[null] |[null]|[null]|
+|2 |pochylnia wjazdowa                             |4242 |3612 |630    |17.44  |
+|3 |winda przystosowana dla osób niepełnosprawnych |3634 |1850 |1784   |96.43  |
+|4 |drzwi automatycznie otwierane                  |2538 |1354 |1184   |87.44  |
+|5 |pokoje/łazienki przystosowane dla osób niepełnosprawnych   |[null] |3626   |[null]|[null]|

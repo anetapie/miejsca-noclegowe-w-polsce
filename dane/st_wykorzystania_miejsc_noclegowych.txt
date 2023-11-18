@@ -1,4 +1,4 @@
-"Kod";"Nazwa";"Rodzaje obiektów";"Rok";"Wartosc";"Jednostka miary";"Atrybut"
+"Kod";"Nazwa";"Rodzaje obiektow";"Rok";"Wartosc";"Jednostka miary";"Atrybut"
 0000000;"POLSKA";"ogółem";"2002";32.90;"%";""
 0000000;"POLSKA";"ogółem";"2003";33.60;"%";""
 0000000;"POLSKA";"ogółem";"2004";33.84;"%";""

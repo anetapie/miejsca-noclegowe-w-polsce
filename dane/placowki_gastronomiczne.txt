@@ -1,4 +1,4 @@
-"Kod";"Nazwa";"Rodzaje obiektów";"Rodzaje placówek";"Rok";"Wartosc";"Jednostka miary";"Atrybut"
+"Kod";"Nazwa";"Rodzaje obiektow";"Rodzaje placowek";"Rok";"Wartosc";"Jednostka miary";"Atrybut"
 0000000;"POLSKA";"ogółem";"restauracje";"2019";3391;"ob.";""
 0000000;"POLSKA";"ogółem";"restauracje";"2020";3134;"ob.";""
 0000000;"POLSKA";"ogółem";"restauracje";"2021";3134;"ob.";""

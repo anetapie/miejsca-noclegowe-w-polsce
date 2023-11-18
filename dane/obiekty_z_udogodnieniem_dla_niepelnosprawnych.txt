@@ -1,4 +1,4 @@
-"Kod";"Nazwa";"Rodzaje udogodnień";"Rok";"Wartosc";"Jednostka miary";"Atrybut"
+"Kod";"Nazwa";"Rodzaje udogodnien";"Rok";"Wartosc";"Jednostka miary";"Atrybut"
 0000000;"POLSKA";"pochylnia wjazdowa";"2009";1806;"ob.";""
 0000000;"POLSKA";"pochylnia wjazdowa";"2013";2200;"ob.";""
 0000000;"POLSKA";"pochylnia wjazdowa";"2017";2487;"ob.";""

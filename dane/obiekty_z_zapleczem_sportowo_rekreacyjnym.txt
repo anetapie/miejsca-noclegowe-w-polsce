@@ -1,4 +1,4 @@
-"Kod";"Nazwa";"Rodzaje urządzeń";"Rok";"Wartosc";"Jednostka miary";"Atrybut"
+"Kod";"Nazwa";"Rodzaje urzadzen";"Rok";"Wartosc";"Jednostka miary";"Atrybut"
 0000000;"POLSKA";"boisko do siatkówki lub koszykówki";"1999";3328;"ob.";""
 0000000;"POLSKA";"boisko do siatkówki lub koszykówki";"2000";2961;"ob.";""
 0000000;"POLSKA";"boisko do siatkówki lub koszykówki";"2001";2936;"ob.";""

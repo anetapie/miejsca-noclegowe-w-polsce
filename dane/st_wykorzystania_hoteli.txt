@@ -1,4 +1,4 @@
-"Kod";"Nazwa";"Wyszczególnienie";"Kategorie";"Rok";"Wartosc";"Jednostka miary";"Atrybut"
+"Kod";"Nazwa";"Wyszczegolnienie";"Kategorie";"Rok";"Wartosc";"Jednostka miary";"Atrybut"
 0000000;"POLSKA";"stopień wykorzystania miejsc noclegowych";"ogółem";"2002";30.30;"%";""
 0000000;"POLSKA";"stopień wykorzystania miejsc noclegowych";"ogółem";"2003";31.00;"%";""
 0000000;"POLSKA";"stopień wykorzystania miejsc noclegowych";"ogółem";"2004";33.81;"%";""
